@@ -7,15 +7,15 @@ var world;
 
 var breite = 600;
 var hoehe = 600;
-var zeilen = 14;
-var spalten = 10;
+var zeilen = 9;
+var spalten = 9;
 
 var kugeln = [];
 var kugelRadius = 4;
-var kugelnMaximum = 1000;
+var kugelnMaximum = 500;
 
 var hindernisse = [];
-var hindernissRadius = 16;
+var hindernissRadius = 18;
 var hindernissAbstandVonOben =  60;
 
 var pfostenhoehe = 200;
@@ -97,7 +97,6 @@ class Grenze{
 }
 
 function setup() {
-  
   createCanvas(breite, hoehe);
   engine = Engine.create();
   world = engine.world;
@@ -120,10 +119,11 @@ function setup() {
 
   for(var spalte=0; spalte<spalten+1; spalte++){
     var verschiebung = 0;
-      if(zeilen-1%2!=0){
+      if(zeilen-1%2 == 0){
+        console.log('hit');
         verschiebung = +abstandX/2;
       }
-    var neueGrenze = new Grenze(abstandX*spalte-hindernissRadius+verschiebung, hoehe - pfostenhoehe, hindernissRadius*2, pfostenhoehe);
+    var neueGrenze = new Grenze(abstandX*spalte-hindernissRadius+verschiebung,  abstandY*(zeilen-1)+hindernissAbstandVonOben, hindernissRadius*2, pfostenhoehe);
     grenzen.push(neueGrenze);
   }
 }
@@ -147,6 +147,6 @@ function draw() {
   grenzen.forEach(grenze => grenze.show());
   grenzen[0].show();
 
-  text(kugeln.length, 30,10);
+  text(kugeln.length, 10,10);
 }
 
