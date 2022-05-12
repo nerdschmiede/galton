@@ -98,6 +98,8 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
   engine.gravity.y = erdanziehung;
+  engine.enableSleeping = true
+  //https://github.com/liabru/matter-js/issues/280
 
   var boden = new Grenze(0, hoehe -10, breite, 10);
   grenzen.push(boden);
