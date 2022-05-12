@@ -46,9 +46,8 @@ class Kugel {
     World.add(world, this.body);
   }
 
-  show() {
-    let plum = color(221, 160, 221);
-    fill(plum);
+  draw(color) {
+    fill(color);
     noStroke();
     var pos = this.body.position;
     circle(pos.x, pos.y, this.radius*2);
@@ -68,9 +67,8 @@ class Hinderniss {
     World.add(world, this.body);
   }
 
-  show() {
-    let lightGrey = color(119, 136, 153);
-    fill(lightGrey);
+  draw(color) {
+    fill(color);
     noStroke();
     var pos = this.body.position;
     circle(pos.x, pos.y, this.radius*2);
@@ -87,9 +85,8 @@ class Grenze{
     this.hoehe = hoehe;
     this.breite = breite
   }
-  show() {
-    let lightGrey = color(119, 136, 153);
-    fill(lightGrey);
+  draw(color) {
+    fill(color);
     noStroke();
     var pos = this.body.position;
     rect(pos.x - this.breite/2, pos.y-this.hoehe/2, this.breite, this.hoehe);
@@ -105,7 +102,6 @@ function setup() {
   var boden = new Grenze(0, hoehe -10, breite, 10);
   grenzen.push(boden);
     
-
   for(var zeile=0; zeile<zeilen; zeile++){
     for(var spalte=0; spalte<spalten+1; spalte++){
       var verschiebung = 0;
@@ -129,23 +125,22 @@ function setup() {
 }
 
 function draw() {
+  let beige = '#f5efe0';
+  let lightGrey = color(119, 136, 153);
+  let plum = color(221, 160, 221);
+
+  background(beige);
+
   if(frameCount % anzahlFramesZwischenKugeln == 0 && kugeln.length<kugelnMaximum){
     var neueKugel = new Kugel(breite / 2, 0, kugelRadius);
     kugeln.push(neueKugel);
   }
-  background('#f5efe0');
+  
   Engine.update(engine);
 
-   
-  for(var i=0; i< kugeln.length; i++){
-    kugeln[i].show();
-  }
-
-  for(var i=0; i<hindernisse.length; i++){
-    hindernisse[i].show();
-  }
-  grenzen.forEach(grenze => grenze.show());
-  grenzen[0].show();
+  kugeln.forEach(element => element.draw(plum));
+  hindernisse.forEach(element => element.draw(lightGrey));
+  grenzen.forEach(element => element.draw(lightGrey));
 
   text(kugeln.length, 10,10);
 }
