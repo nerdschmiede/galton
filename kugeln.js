@@ -50,23 +50,4 @@ class Kugel {
     }
   }
 
-  class Hinderniss {
-    constructor(x, y, radius) {
-      var options = {
-        isStatic: true,
-        restitution : elastizitaet, 
-        friction: 0,
-      }
-      this.body = Bodies.circle(x, y, radius, options);
-      this.radius = radius;
-      World.add(world, this.body);
-    }
-  
-    draw(color) {
-      fill(color);
-      noStroke();
-      var pos = this.body.position;
-      circle(pos.x, pos.y, this.radius*2);
-    }
-  }
   
