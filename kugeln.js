@@ -2,6 +2,34 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 
+class Kugeln{
+  constructor(){
+    this.maximum = 500;
+    this.kugeln = []
+    this.kugelRadius = 4;
+
+  }
+
+  hinzufuegen(){
+    var neueKugel = new Kugel(breite / 2, 0, this.kugelRadius);
+    this.kugeln.push(neueKugel);
+  }
+
+  draw(){
+    let plum = color(221, 160, 221);
+    this.kugeln.forEach(element => element.draw(plum));
+  }
+
+  maximumNichtErreicht(){
+    return this.kugeln.length < this.maximum;
+  }
+
+  anzahl(){
+    return this.kugeln.length;
+  }
+
+}
+
 class Kugel {
     constructor(x, y, radius) {
       var options = {

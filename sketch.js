@@ -10,9 +10,7 @@ var hoehe = 600;
 var zeilen = 9;
 var spalten = 9;
 
-var kugeln = [];
-var kugelRadius = 4;
-var kugelnMaximum = 500;
+var kugeln = new Kugeln();
 
 var hindernisse = [];
 var hindernissRadius = 18;
@@ -38,7 +36,12 @@ function setup() {
 
   var boden = new Grenze(0, hoehe -10, breite, 10);
   grenzen.push(boden);
-    
+
+  for(var spalte=0; spalte<spalten+1; spalte++){
+    var neueGrenze = new Grenze(abstandX*spalte-hindernissRadius,  abstandY*(zeilen-1)+hindernissAbstandVonOben, hindernissRadius*2, pfostenhoehe);
+    grenzen.push(neueGrenze);
+  }
+
   for(var zeile=0; zeile<zeilen; zeile++){
     for(var spalte=0; spalte<spalten+1; spalte++){
       var verschiebung = 0;
@@ -50,35 +53,27 @@ function setup() {
     }
   }
 
-  for(var spalte=0; spalte<spalten+1; spalte++){
-    var verschiebung = 0;
-      if(zeilen-1%2 == 0){
-        console.log('hit');
-        verschiebung = +abstandX/2;
-      }
-    var neueGrenze = new Grenze(abstandX*spalte-hindernissRadius+verschiebung,  abstandY*(zeilen-1)+hindernissAbstandVonOben, hindernissRadius*2, pfostenhoehe);
-    grenzen.push(neueGrenze);
-  }
 }
 
 function draw() {
-  let beige = '#f5efe0';
   let lightGrey = color(119, 136, 153);
-  let plum = color(221, 160, 221);
+  let beige = '#f5efe0';
 
   background(beige);
 
-  if(frameCount % anzahlFramesZwischenKugeln == 0 && kugeln.length<kugelnMaximum){
-    var neueKugel = new Kugel(breite / 2, 0, kugelRadius);
-    kugeln.push(neueKugel);
+  if(zeitFuerEineKugel() && kugeln.maximumNichtErreicht){
+    kugeln.hinzufuegen();
   }
   
   Engine.update(engine);
 
-  kugeln.forEach(element => element.draw(plum));
+  kugeln.draw();
   hindernisse.forEach(element => element.draw(lightGrey));
   grenzen.forEach(element => element.draw(lightGrey));
 
-  text(kugeln.length, 10,10);
+  text(kugeln.anzahl(), 10,10);
 }
 
+function zeitFuerEineKugel(){
+  return frameCount % anzahlFramesZwischenKugeln == 0;
+ }
