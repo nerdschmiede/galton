@@ -35,7 +35,7 @@ function draw() {
   let beige = '#f5efe0';
   background(beige);
 
-  if(zeitFuerEineKugel() && kugeln.maximumNichtErreicht){
+  if(zeitFuerEineKugel() && kugeln.maximumNichtErreicht()){
     kugeln.hinzufuegen();
   }
   
