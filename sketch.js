@@ -6,7 +6,7 @@ var engine;
 var world;
 var umgebung;
 
-var breite = 600;
+var breite = 350;
 var hoehe = 600;
 
 var kugeln = new Kugeln();
