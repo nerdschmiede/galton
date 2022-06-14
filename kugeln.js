@@ -4,10 +4,9 @@ function getRndInteger(min, max) {
 
 class Kugeln{
   constructor(){
-    this.maximum = 500;
+    this.maximum = 400;
     this.kugeln = []
     this.kugelRadius = 4;
-
   }
 
   hinzufuegen(){
@@ -26,6 +25,11 @@ class Kugeln{
 
   anzahl(){
     return this.kugeln.length;
+  }
+
+  reset(){
+    this.kugeln.forEach(kugel => kugel.remove())
+    this.kugeln = [];
   }
 
 }
@@ -47,6 +51,10 @@ class Kugel {
       noStroke();
       var pos = this.body.position;
       circle(pos.x, pos.y, this.radius*2);
+    }
+
+    remove(){
+      World.remove(world, this.body);
     }
   }
 

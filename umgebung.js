@@ -3,15 +3,18 @@ class Umgebung {
     this.grenzen = [];
     this.hindernisse = []
 
-    var boden = new Grenze(0, hoehe - 10, breite, 10);
+    var boden = new Grenze(0, hoehe - 20, breite, 20);
     this.grenzen.push(boden);
 
-    var abstandX = breite/spalten;
-    var abstandY = (hoehe-hindernissAbstandVonOben-pfostenhoehe+2*hindernissRadius)/zeilen;
+    var spalten = 37;
+    var zeilen = 21;
+    var abstand = 8;
+    var hindernissRadius = 4;
+    var pfostenhoehe = 250;
 
 
     for (var spalte = 0; spalte < spalten + 1; spalte++) {
-      var neueGrenze = new Grenze(abstandX * spalte - hindernissRadius, abstandY * (zeilen - 1) + hindernissAbstandVonOben, hindernissRadius * 2, pfostenhoehe);
+      var neueGrenze = new Grenze((abstand*2)* spalte - hindernissRadius, hoehe-pfostenhoehe, hindernissRadius * 2, pfostenhoehe);
       this.grenzen.push(neueGrenze);
     }
 
@@ -19,9 +22,9 @@ class Umgebung {
       for(var spalte=0; spalte<spalten+1; spalte++){
         var verschiebung = 0;
         if(zeile%2!=0){
-          verschiebung = +abstandX/2;
+          verschiebung = abstand;
         }
-        var neuesHinderniss = new Hinderniss(abstandX*spalte+verschiebung, abstandY*zeile+hindernissAbstandVonOben, hindernissRadius);
+        var neuesHinderniss = new Hinderniss((abstand*2)*spalte+verschiebung, (abstand*2)*zeile+hindernissAbstandVonOben, hindernissRadius);
         this.hindernisse.push(neuesHinderniss);
       }
     }
